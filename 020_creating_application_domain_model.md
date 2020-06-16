@@ -13,19 +13,27 @@
 2. **ドメインモデルプロジェクトを作成**
 
     `create-new-domain-model-project.sh`スクリプトを実行します。
-    `project-name`のみ入力し、それ以外は全てデフォルト値を使用します。
+    ここでは全てデフォルト値を使用するので、リターンを押して進めてください。
 
     ```console
     $ ./scripts/create-new-domain-model-project.sh
 
-    Enter project-name: domain-model
+    Enter project-name [domain-model]:
 
     Enter project-version [0.0.1]:
 
     Enter namespace [laplacian.tutorial]:
     ...
 
-    The new subproject is created at ./subprojects/laplacian-tutorial.domain-model/
+    Created the new project's definition at: laplacian-tutorial/model/project/subprojects/laplacian-tutorial/domain-model.yaml
+    1. Edit this file if you need.
+    2. Run ./scripts/generate-domain-model.sh to generate the project's content.
+    ```
+
+    ここでは、生成されたプロジェクト定義を修正する必要はないので、そのままプロジェクトを生成します。
+
+    ```console
+    ./scripts/generate-domain-model.sh
     ```
 
     生成されたコードをコミットします。
@@ -40,17 +48,17 @@
 
 3. **ドメインモデルを作成**
 
-    作成したサブプロジェクトを`VS-Code`で開きます。
+    作成したサブプロジェクトをエディタで開きます。
 
     ```console
-    code ./subprojects/laplacian-tutorial.domain-model/
+    code ./subprojects/domain-model/
     ```
 
-    ドメインモデルを定義する`Yaml`ファイルを`src/entities`ディレクトリ配下に作成します。
+    ドメインモデルを定義する`Yaml`ファイルを`src/model/entities`ディレクトリ配下に作成します。
 
     ![src-dir-explorer](./images/src-dir-explorer.png)
 
-    > `src/entities/task-group.yaml`
+    > `src/model/entities/task-group.yaml`
 
     ```yaml
     entities:
@@ -78,7 +86,7 @@
         aggregate: true
     ```
 
-    > `src/entities/task.yaml`
+    > `src/model/entities/task.yaml`
 
     ```yaml
     entities:
@@ -110,29 +118,28 @@
         reverse_of: tasks
     ```
 
-    `VS-Code`のターミナルを開き、`generate.sh`スクリプトを実行します。
-    スクリプトでは作成したモデルの検証とソースコード・ドキュメントの生成を行います。
+    追加したモデルを検証し、その内容をプロジェクトに反映するため、再生成を行います。
 
     ```console
-    ./scripts/generate.sh
+    ./scripts/generate-domain-model.sh
     ```
 
-    モデルの内容に問題があった場合、以下のようなエラーが出力されます。
-
-    ```console
-    $ ./scripts/generate.sh
-
-    Caused by: java.lang.IllegalStateException: While merging the model file (laplacian-tutorial/subprojects/laplacian-tutorial.domain-model/.NEXT/dest/entities/task_group.yaml)
-    ...
-    Caused by: laplacian.util.JsonSchemaValidationError: $.entities[0].relationships[0].cardinality: does not have a value in the enumeration [1, 0..1, *, 1..*]
-        at laplacian.util.YamlLoader$Companion.readObjects(YamlLoader.kt:57)
-        at laplacian.util.YamlLoader$Companion.readObjects(YamlLoader.kt:36)
-        ... 153 more
-    ```
-
-    コマンドラインで行われる検証は、`VS-Code`上でも行われ、下図のように、エラー内容をエディタ上で確認できます。
-
-    ![model validation error](./images/model-validation-error.png)
+    > モデルの内容に問題があった場合、以下のようなエラーが出力されます。
+    >
+    > ```console
+    > $ ./scripts/generate-domain-model.sh
+    >
+    > Caused by: java.lang.IllegalStateException: While merging the model file (laplacian-tutorial/subprojects/domain-model/.NEXT/dest/model/entities/task_group.yaml)
+    > ...
+    > Caused by: laplacian.util.JsonSchemaValidationError: $.entities[0].relationships[0].cardinality: does not have a value in the enumeration [1, 0..1, *, 1..*]
+    >     at laplacian.util.YamlLoader$Companion.readObjects(YamlLoader.kt:57)
+    >     at laplacian.util.YamlLoader$Companion.readObjects(YamlLoader.kt:36)
+    >     ... 153 more
+    > ```
+    >
+    > エディタに`VS-Code`を使用している場合は、エラー内容を随時エディタ上で確認できます。
+    >
+    > ![model validation error](./images/model-validation-error.png)
 
     作成したモデルをコミットします。
 
@@ -141,35 +148,11 @@
     ```
 
     ```console
-    git commit -m 'Add domain models.'
+    git commit -m 'add domain models.'
     ```
 
-4. **作成したドメインモデルをローカルモジュールリポジトリに登録**
-
-    `VS-Code`のターミナルで`publish-local`スクリプトを実行します。
-
-    ```console
-    ./scripts/publish-local.sh
-    ```
-
-5. **作成したモデルのプラグインを生成し、ローカルモジュールリポジトリに登録**
-
-    `VS-Code`のターミナルで以下のコマンドを実行します。
-
-    ```console
-    ./scripts/generate-domain-model.sh
-    ```
+4. **作成したドメインモデルおよびプラグインをローカルモジュールリポジトリに登録**
 
     ```console
     ./scripts/publish-local-domain-model.sh
-    ```
-
-    生成したコードをコミットします。
-
-    ```console
-    git add .
-    ```
-
-    ```console
-    git commit -m 'Add domain-model-plugin'
     ```

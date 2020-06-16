@@ -13,19 +13,64 @@ APIの機能と構成を定義するモデルを作成します。
 2. **アプリケーションファンクションモデルプロジェクトを作成**
 
     `create-new-function-model-project.sh`スクリプトを実行します。
-    `project-name`のみ入力し、それ以外は全てデフォルト値を使用します。
+    ここでは全てデフォルト値を使用するので、リターンを押して進めてください。
 
     ```console
     $ ./scripts/create-new-function-model-project.sh
 
-    Enter project-name: function-model
+    Enter project-name [function-model]:
 
     Enter project-version [0.0.1]:
 
     Enter namespace [laplacian.tutorial]:
     ...
 
-    The new subproject is created at ./subprojects/laplacian-tutorial.function-model/
+    Created the new project's definition at: laplacian-tutorial/model/project/subprojects/laplacian-tutorial/function-model.yaml
+    1. Edit this file if you need.
+    2. Run ./scripts/generate-function-model.sh to generate the project's content.
+    ```
+
+    生成されたプロジェクトモデルファイル(`model/project/subprojects/laplacian-tutorial/function-model.yaml`)をエディタで開き、先に作成したドメインモデルへの参照を追加します。
+
+    ```console
+    code .
+    ```
+
+    > `model/project/subprojects/laplacian-tutorial/function-model.yaml`
+
+    ```yaml
+    _description: &description
+      en: |
+        The function-model project.
+
+    _project: &project
+      group: laplacian-tutorial
+      type: function-model
+      name: function-model
+      namespace: laplacian.tutorial
+      description: *description
+      version: '0.0.1'
+      # Insert the following lines into your project file.
+      # From here...
+      plugins:
+      - group: laplacian-tutorial
+        name: domain-model-plugin
+        version: '0.0.1'
+      models:
+      - group: laplacian-tutorial
+        name: domain-model
+        version: '0.0.1'
+      # ... to here.
+    project:
+      subprojects:
+      - *project
+    ```
+
+    上記ファイルを元にプロジェクトを生成します。
+
+    ```console
+    ./scripts/generate.sh
+    ./scripts/generate-function-model.sh
     ```
 
     生成されたコードをコミットします。
@@ -45,21 +90,21 @@ APIの機能と構成を定義するモデルを作成します。
     作成したサブプロジェクトを`VS-Code`で開きます。
 
     ```console
-    code ./subprojects/laplacian-tutorial.function-model/
+    code ./subprojects/function-model/
     ```
 
-    データアクセスモデルを定義する`Yaml`ファイルを`src/datasources`ディレクトリ配下に作成します。
+    データアクセスモデルを定義する`Yaml`ファイルを`src/model/datasources`ディレクトリ配下に作成します。
 
     ![src-dir-explorer](./images/src-dir-explorer.png)
 
-    > `src/datasources/tutorial-db.yaml`
+    > `src/model/datasources/tutorial-db.yaml`
 
     ```yaml
     datasources:
     - name: tutorial_db
       type: postgres
-      user: test
-      password: secret
+      db_user: test
+      db_password: secret
       db_name: tutorial_db
       hostname: localhost
       entity_references:
@@ -70,9 +115,9 @@ APIの機能と構成を定義するモデルを作成します。
 
     次に、APIの定義と、APIが外部に公開するRESTリソースの定義を表すモデルを作成します。
 
-    先に作成したサブプロジェクトの`src/`ディレクトリに下記の`Yaml`ファイルを追加してください。
+    先に作成したサブプロジェクトの`src/model/services`ディレクトリおよび、`src/model/rest-resources/`ディレクトリに下記の`Yaml`ファイルを追加してください。
 
-    > `src/services/tutorial-api.yaml`
+    > `src/model/services/tutorial-api.yaml`
 
     ```yaml
     services:
@@ -84,7 +129,7 @@ APIの機能と構成を定義するモデルを作成します。
       - resource_name: task_group
     ```
 
-    > `src/rest_resources/task-group.yaml`
+    > `src/model/rest_resources/task-group.yaml`
 
     ```yaml
     rest_resources:

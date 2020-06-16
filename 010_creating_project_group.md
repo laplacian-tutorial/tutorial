@@ -57,8 +57,6 @@
       - group: 'laplacian-arch'
         name: 'project-types'
         version: '1.0.0'
-      model_files:
-      - dest/
     ```
 
 4. **自動生成スクリプトを実行**
@@ -72,5 +70,5 @@
     ```
 
     ```console
-    git commit -m 'Initial commit'
+    git commit -m 'initial commit'
     ```

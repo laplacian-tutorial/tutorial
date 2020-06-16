@@ -4,11 +4,19 @@ PROJECT_BASE_DIR=$(cd "$(dirname $BASH_SOURCE)/.." && pwd)
 set -e
 set -x
 
+_main() {
+  (cd "$PROJECT_BASE_DIR/laplacian-tutorial"
+    git reset --hard e5c1b5f1888d4e26ea1c651215ef36e0ca2b780e
+  )
+  _040_generating_and_testing_api_service
+}
+
 main() {
   cleanup
   _010_creating_project_group
   _020_creating_application_domain_model
   _030_creating_application_api_model
+#  _040_generating_and_testing_api_service
 }
 
 cleanup() {
@@ -31,19 +39,20 @@ _010_creating_project_group() {
   cat model/project.yaml
   ./scripts/generate.sh
   git add .
-  git commit -m 'Initial commit'
+  git commit -m 'initial commit'
 }
 
 _020_creating_application_domain_model() {
   cd $PROJECT_BASE_DIR
   cd laplacian-tutorial
   ./scripts/create-new-domain-model-project.sh
+  ./scripts/generate-domain-model.sh
   git add .
   git commit -m 'add domain-model subproject.'
 
-  (cd ./subprojects/laplacian-tutorial.domain-model/
-    mkdir -p ./src/entities
-    echo <<'EOF' > ./src/entities/task-group.yaml
+  (cd ./subprojects/domain-model/
+    mkdir -p ./src/model/entities
+    cat <<'EOF' > ./src/model/entities/task-group.yaml
 entities:
 - name: task_group
   namespace: laplacian.tutorial
@@ -69,7 +78,7 @@ entities:
     aggregate: true
 EOF
 
-    echo <<'EOF' > ./src/entities/task.yaml
+    cat <<'EOF' > ./src/model/entities/task.yaml
 entities:
 - name: task
   namespace: laplacian.tutorial
@@ -99,37 +108,62 @@ entities:
     reverse_of: tasks
 EOF
   )
-  ./scripts/generate.sh
-  git add .
-  git commit -m 'Add domain models.'
-  ./scripts/publish-local.sh
   ./scripts/generate-domain-model.sh
-  ./scripts/publish-local-domain-model.sh
   git add .
-  git commit -m 'Add domain-model-plugin'
+  git commit -m 'add domain models.'
+  ./scripts/publish-local-domain-model.sh
 }
 
 _030_creating_application_api_model() {
   cd $PROJECT_BASE_DIR
   cd laplacian-tutorial
   ./scripts/create-new-function-model-project.sh
+  cat <<'EOF' > 'model/project/subprojects/function-model.yaml'
+_description: &description
+  en: |
+    The function-model project.
+
+_project: &project
+  group: laplacian-tutorial
+  type: function-model
+  name: function-model
+  namespace: laplacian.tutorial
+  description: *description
+  version: '0.0.1'
+  # Insert the following lines into your project file.
+  # From here...
+  plugins:
+  - group: laplacian-tutorial
+    name: domain-model-plugin
+    version: '0.0.1'
+  models:
+  - group: laplacian-tutorial
+    name: domain-model
+    version: '0.0.1'
+  # ... to here.
+project:
+  subprojects:
+  - *project
+EOF
+  ./scripts/generate.sh
+  ./scripts/generate-function-model.sh
   git add .
   git commit -m 'add function-model subproject.'
-  (cd ./subprojects/laplacian-tutorial.function-model/
-    mkdir -p src/datasources
-    echo <<EOF > src/datasources/tutorial-db.yaml
+  (cd ./subprojects/function-model/
+    mkdir -p src/model/datasources
+    cat <<EOF > src/model/datasources/tutorial-db.yaml
 datasources:
 - name: tutorial_db
   type: postgres
-  user: test
-  password: secret
+  db_user: test
+  db_password: secret
   db_name: tutorial_db
   hostname: localhost
   entity_references:
   - entity_name: task_group
 EOF
-    mkdir -p src/services
-    echo <<EOF > src/services/tutorial-api.yaml
+    mkdir -p src/model/services
+    cat <<EOF > src/model/services/tutorial-api.yaml
 services:
 - name: tutorial_api
   version: '0.0.1'
@@ -138,8 +172,8 @@ services:
   resource_entries:
   - resource_name: task_group
 EOF
-    mkdir -p src/rest-resources
-    echo <<EOF > src/rest-resources/task-group.yaml
+    mkdir -p src/model/rest-resources
+    cat <<EOF > src/model/rest-resources/task-group.yaml
 rest_resources:
 - name: task_group
   namespace: laplacian.tutorial.api.rest.resource
@@ -151,9 +185,50 @@ rest_resources:
       type: array
 EOF
   )
-  ./scripts/generate.sh
+  ./scripts/generate-function-model.sh
   git add .
   git commit -m 'Add function models concerning the api service.'
-  ./scripts/publish-local.sh
+  ./scripts/publish-local-function-model.sh
 }
+
+_040_generating_and_testing_api_service() {
+  cd $PROJECT_BASE_DIR
+  cd laplacian-tutorial
+  ./scripts/create-new-java-stack-service-project.sh
+  cat <<'EOF' > 'model/project/subprojects/java-stack-service.yaml'
+_description: &description
+  en: |
+    The api-service project.
+
+_project: &project
+  group: laplacian-tutorial
+  type: java-stack-service
+  name: java-stack-service
+  namespace: laplacian.tutorial
+  description: *description
+  version: '0.0.1'
+  # Insert the following lines into your project file.
+  # From here...
+  plugins:
+  - group: laplacian-tutorial
+    name: domain-model-plugin
+    version: '0.0.1'
+  models:
+  - group: laplacian-tutorial
+    name: domain-model
+    version: '0.0.1'
+  - group: laplacian-tutorial
+    name: function-model
+    version: '0.0.1'
+  # ... to here.
+project:
+  subprojects:
+  - *project
+EOF
+  ./scripts/generate.sh
+  ./scripts/generate-java-stack-service.sh
+  git add .
+  git commit -m 'generate java stack implementation of the service.'
+}
+
 main
