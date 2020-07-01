@@ -4,9 +4,12 @@ PROJECT_BASE_DIR=$(cd "$(dirname $BASH_SOURCE)/.." && pwd)
 set -e
 set -x
 
+HASH=7bcda6e402d9def4515be09b1c955600c6e8c6bf
+MAIN='main'
+
 _main() {
   (cd "$PROJECT_BASE_DIR/laplacian-tutorial"
-    git reset --hard e5c1b5f1888d4e26ea1c651215ef36e0ca2b780e
+    git reset --hard $HASH
   )
   _040_generating_and_testing_api_service
 }
@@ -16,7 +19,7 @@ main() {
   _010_creating_project_group
   _020_creating_application_domain_model
   _030_creating_application_api_model
-#  _040_generating_and_testing_api_service
+  _040_generating_and_testing_api_service
 }
 
 cleanup() {
@@ -158,7 +161,6 @@ datasources:
   db_user: test
   db_password: secret
   db_name: tutorial_db
-  hostname: localhost
   entity_references:
   - entity_name: task_group
 EOF
@@ -225,10 +227,35 @@ project:
   subprojects:
   - *project
 EOF
+
   ./scripts/generate.sh
   ./scripts/generate-java-stack-service.sh
   git add .
   git commit -m 'generate java stack implementation of the service.'
+
+  local test_data_yaml='subprojects/java-stack-service/model/task_groups/test-data.yaml'
+  mkdir -p $(dirname $test_data_yaml)
+  cat <<'EOF' > "$test_data_yaml"
+task_groups:
+- id: 66e3d018-f188-4bfe-8edc-2bccfec9456f
+  title: My To Do List
+  tasks:
+  - seq_number: 1
+    title: Hit the gym
+  - seq_number: 2
+    title: Pay bills
+    completed: true
+  - seq_number: 3
+    title: Organize office
+    description: |
+      Start with a purge!
+- id: 65b7ffa0-e35f-49c1-8695-487c3e4798cc
+  title: An Empty To Do List
+  color: gray
+EOF
+
+  ./subprojects/java-stack-service/scripts/generate.sh
+  ./subprojects/java-stack-service/scripts/deploy-on-local-containers.sh
 }
 
-main
+$MAIN

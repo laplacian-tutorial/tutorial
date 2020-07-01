@@ -106,7 +106,6 @@ APIの機能と構成を定義するモデルを作成します。
       db_user: test
       db_password: secret
       db_name: tutorial_db
-      hostname: localhost
       entity_references:
       - entity_name: task_group
     ```
