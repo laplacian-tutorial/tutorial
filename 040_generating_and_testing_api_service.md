@@ -136,7 +136,7 @@
     生成したプロジェクトをローカル環境で起動します。
 
     ```console
-    $ ./subproject/generate-java-stack-service/scripts/deploy-on-local-containers.sh
+    $ ./subproject/java-stack-service/scripts/deploy-on-local-containers.sh
 
     tutorial-api           | 2020-06-30 16:00:48.065  INFO 6 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
     tutorial-api           | 2020-06-30 16:00:48.082  INFO 6 --- [           main] l.tutorial.api.TutorialApiApplicationKt  : Started TutorialApiApplicationKt in 15.096 seconds (JVM running for 17.481)
