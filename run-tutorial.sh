@@ -231,7 +231,7 @@ EOF
   ./scripts/generate.sh
   ./scripts/generate-java-stack-service.sh
   git add .
-  git commit -m 'generate java stack implementation of the service.'
+  git commit -m 'add a project for a java stack implementation of the service.'
 
   local test_data_yaml='subprojects/java-stack-service/model/task_groups/test-data.yaml'
   mkdir -p $(dirname $test_data_yaml)
@@ -255,6 +255,8 @@ task_groups:
 EOF
 
   ./subprojects/java-stack-service/scripts/generate.sh
+  git add .
+  git commit -m 'add test data.'
   ./subprojects/java-stack-service/scripts/deploy-on-local-containers.sh
 }
 
