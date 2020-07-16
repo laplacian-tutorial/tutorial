@@ -1,0 +1,11 @@
+albums:
+{{~#unless albums}}
+  []
+{{else}}
+{{#each albums as |album| ~}}
+- id: {{album.id}}
+  user_id: {{album.userId}}
+  title: |
+    {{album.title}}
+{{/each}}
+{{/unless}}

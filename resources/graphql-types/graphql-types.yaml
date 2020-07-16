@@ -1,0 +1,9 @@
+graphql_types:
+- entity_name: address
+- entity_name: album
+- entity_name: comment
+- entity_name: company
+- entity_name: photo
+- entity_name: post
+- entity_name: task
+- entity_name: user

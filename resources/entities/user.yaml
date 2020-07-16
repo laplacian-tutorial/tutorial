@@ -1,0 +1,50 @@
+entities:
+- name: user
+  namespace: laplacian.tutorial
+
+  properties:
+  - name: id
+    type: number
+    primary_key: true
+
+  - name: name
+    type: string
+
+  - name: username
+    type: string
+
+  - name: email
+    type: string
+
+  - name: phone
+    type: string
+    optional: true
+
+  - name: website
+    type: string
+    optional: true
+
+  relationships:
+  - name: address
+    reference_entity_name: address
+    cardinality: '1'
+    aggregate: true
+
+  - name: company
+    reference_entity_name: company
+    cardinality: '0..1'
+    aggregate: true
+
+  - name: tasks
+    reference_entity_name: task
+    cardinality: '*'
+    mappings:
+    - from: id
+      to: user_id
+
+  - name: albums
+    reference_entity_name: album
+    cardinality: '*'
+    mappings:
+    - from: id
+      to: user_id

@@ -1,0 +1,9 @@
+rest_resources: []
+# - name: task_group
+#   namespace: laplacian.tutorial.api.rest.resource
+#   operations:
+#   - method: GET
+#     response_body:
+#     - name: task_groups
+#       entity_name: task_group
+#       type: array

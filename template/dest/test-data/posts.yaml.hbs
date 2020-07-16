@@ -1,0 +1,13 @@
+posts:
+{{~#unless posts}}
+  []
+{{else}}
+{{#each posts as |post| ~}}
+- id: {{post.id}}
+  user_id: {{post.userId}}
+  title: |
+    {{shift post.title 4}}
+  body: |
+    {{shift post.body 4}}
+{{/each}}
+{{/unless}}

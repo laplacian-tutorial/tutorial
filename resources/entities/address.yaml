@@ -1,0 +1,28 @@
+entities:
+- name: address
+  namespace: laplacian.tutorial.user
+
+  properties:
+  - name: street
+    type: string
+
+  - name: suite
+    type: string
+
+  - name: city
+    type: string
+
+  - name: zipcode
+    type: string
+
+  - name: latitude
+    type: string
+
+  - name: longitude
+    type: string
+
+  relationships:
+  - name: user
+    reference_entity_name: user
+    cardinality: '1'
+    reverse_of: address

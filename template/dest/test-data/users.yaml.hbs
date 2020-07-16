@@ -1,0 +1,35 @@
+users:
+{{~#unless users}}
+  []
+{{else}}
+{{#each users as |user| ~}}
+- id: {{user.id}}
+  name: {{user.name}}
+  username: {{user.username}}
+  email: {{user.email}}
+  address:
+    street: |
+      {{user.address.street}}
+    suite: |
+      {{user.address.suite}}
+    city: |
+      {{user.address.city}}
+    zipcode: |
+      {{user.address.zipcode}}
+    longitude: |
+      {{user.address.geo.lng}}
+    latitude: |
+      {{user.address.geo.lat}}
+  phone: |
+    {{user.phone}}
+  website: |
+    {{user.website}}
+  company:
+    name: |
+      {{user.company.name}}
+    catch_phrase: |
+      {{user.company.catchPhrase}}
+    bs: |
+      {{user.company.bs}}
+{{/each}}
+{{/unless}}

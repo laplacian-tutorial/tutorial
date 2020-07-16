@@ -1,0 +1,13 @@
+project:
+  group: laplacian
+  name: tutorial
+  type: generator
+  version: '1.0.0'
+  description:
+    en: |
+      tutorial projects.
+  module_repositories:
+    local:
+      ../mvn-repo
+    remote:
+    - https://github.com/nabla-squared/mvn-repo

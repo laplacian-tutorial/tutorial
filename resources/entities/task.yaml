@@ -1,0 +1,33 @@
+entities:
+- name: task
+  namespace: laplacian.tutorial
+
+  properties:
+  - name: id
+    type: number
+    primary_key: true
+
+  - name: user_id
+    type: number
+    optional: true
+
+  - name: title
+    type: string
+    optional: true
+    size: 4096
+    default_value: |
+      ""
+
+  - name: completed
+    type: boolean
+    optional: true
+    default_value: |
+      false
+
+  relationships:
+  - name: assignee
+    reference_entity_name: user
+    cardinality: '0..1'
+    mappings:
+    - from: user_id
+      to: id

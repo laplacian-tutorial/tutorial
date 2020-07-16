@@ -1,0 +1,34 @@
+entities:
+- name: album
+  namespace: laplacian.tutorial
+
+  properties:
+  - name: id
+    type: number
+    primary_key: true
+
+  - name: user_id
+    type: number
+
+  - name: title
+    type: string
+    optional: true
+    size: 4096
+    default_value: |
+      ""
+
+  relationships:
+  - name: owner
+    reference_entity_name: user
+    cardinality: '1'
+    mappings:
+    - from: user_id
+      to: id
+
+  - name: photos
+    reference_entity_name: photo
+    cardinality: '*'
+    mappings:
+    - from: id
+      to: album_id
+

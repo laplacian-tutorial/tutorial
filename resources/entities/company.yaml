@@ -1,0 +1,21 @@
+entities:
+- name: company
+  namespace: laplacian.tutorial.user
+
+  properties:
+  - name: name
+    type: string
+
+  - name: catch_phrase
+    type: string
+    optional: true
+
+  - name: bs
+    type: string
+    optional: true
+
+  relationships:
+  - name: user
+    reference_entity_name: user
+    cardinality: '1'
+    reverse_of: company

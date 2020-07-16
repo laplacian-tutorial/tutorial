@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
-PROJECT_BASE_DIR=$(cd "$(dirname $BASH_SOURCE)/.." && pwd)
+BASE_DIR=$(cd "$(dirname $BASH_SOURCE)" && pwd)
+PROJECT_BASE_DIR=$(cd "$BASE_DIR/.." && pwd)
 
 set -e
 set -x
@@ -55,61 +56,7 @@ _020_creating_application_domain_model() {
 
   (cd ./subprojects/domain-model/
     mkdir -p ./src/model/entities
-    cat <<'EOF' > ./src/model/entities/task-group.yaml
-entities:
-- name: task_group
-  namespace: laplacian.tutorial
-
-  properties:
-  - name: id
-    type: string
-    primary_key: true
-
-  - name: title
-    type: string
-
-  - name: color
-    type: string
-    optional: true
-    default_value: |
-      "transparent"
-
-  relationships:
-  - name: tasks
-    reference_entity_name: task
-    cardinality: '*'
-    aggregate: true
-EOF
-
-    cat <<'EOF' > ./src/model/entities/task.yaml
-entities:
-- name: task
-  namespace: laplacian.tutorial
-
-  properties:
-  - name: seq_number
-    type: number
-    primary_key: true
-
-  - name: title
-    type: string
-
-  - name: description
-    type: string
-    optional: true
-
-  - name: completed
-    type: boolean
-    optional: true
-    default_value: |
-      false
-
-  relationships:
-  - name: task_group
-    cardinality: '1'
-    reference_entity_name: task_group
-    reverse_of: tasks
-EOF
+    cp -r $BASE_DIR/resources/entities/*.yaml ./src/model/entities
   )
   ./scripts/generate-domain-model.sh
   git add .
@@ -154,38 +101,13 @@ EOF
   git commit -m 'add function-model subproject.'
   (cd ./subprojects/function-model/
     mkdir -p src/model/datasources
-    cat <<EOF > src/model/datasources/tutorial-db.yaml
-datasources:
-- name: tutorial_db
-  type: postgres
-  db_user: test
-  db_password: secret
-  db_name: tutorial_db
-  entity_references:
-  - entity_name: task_group
-EOF
+    cp -r $BASE_DIR/resources/datasources/*.yaml src/model/datasources/
     mkdir -p src/model/services
-    cat <<EOF > src/model/services/tutorial-api.yaml
-services:
-- name: tutorial_api
-  version: '0.0.1'
-  namespace: laplacian.tutorial.api
-  datasource_name: tutorial_db
-  resource_entries:
-  - resource_name: task_group
-EOF
+    cp $BASE_DIR/resources/services/*.yaml src/model/services/
     mkdir -p src/model/rest-resources
-    cat <<EOF > src/model/rest-resources/task-group.yaml
-rest_resources:
-- name: task_group
-  namespace: laplacian.tutorial.api.rest.resource
-  operations:
-  - method: GET
-    response_body:
-    - name: task_groups
-      entity_name: task_group
-      type: array
-EOF
+    cp $BASE_DIR/resources/rest-resources/*.yaml src/model/rest-resources/
+    mkdir -p src/model/graphql-types
+    cp $BASE_DIR/resources/graphql-types/*.yaml src/model/graphql-types/
   )
   ./scripts/generate-function-model.sh
   git add .
@@ -233,26 +155,9 @@ EOF
   git add .
   git commit -m 'add a project for a java stack implementation of the service.'
 
-  local test_data_yaml='subprojects/java-stack-service/model/task_groups/test-data.yaml'
-  mkdir -p $(dirname $test_data_yaml)
-  cat <<'EOF' > "$test_data_yaml"
-task_groups:
-- id: 66e3d018-f188-4bfe-8edc-2bccfec9456f
-  title: My To Do List
-  tasks:
-  - seq_number: 1
-    title: Hit the gym
-  - seq_number: 2
-    title: Pay bills
-    completed: true
-  - seq_number: 3
-    title: Organize office
-    description: |
-      Start with a purge!
-- id: 65b7ffa0-e35f-49c1-8695-487c3e4798cc
-  title: An Empty To Do List
-  color: gray
-EOF
+  local test_data_dir='subprojects/java-stack-service/model/test-data'
+  mkdir -p $test_data_dir
+  cp -r $BASE_DIR/resources/test-data/*.yaml $test_data_dir
 
   ./subprojects/java-stack-service/scripts/generate.sh
   git add .

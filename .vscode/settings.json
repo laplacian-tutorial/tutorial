@@ -1,0 +1,10 @@
+{
+  "yaml.schemas": {
+    "./model-schema-partial.json": [
+      "model/**/*.yaml",
+      "model/*.yaml",
+      "src/*.yaml",
+      "src/**/*.yaml"
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+photos:
+{{~#unless photos}}
+  []
+{{else}}
+{{#each photos as |photo| ~}}
+- id: {{photo.id}}
+  album_id: {{photo.albumId}}
+  title: |
+    {{shift photo.title 4}}
+  url: |
+    {{photo.url}}
+  thumbnail_url: |
+    {{photo.thumbnailUrl}}
+{{/each}}
+{{/unless}}

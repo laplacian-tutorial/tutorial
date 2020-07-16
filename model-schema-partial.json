@@ -1,0 +1,1586 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Domain model definition for the tutorial project.",
+  "description": "Domain model definition for the tutorial project.",
+  "type": "object",
+  "required": [],
+  "properties": {
+    "sections": {
+      "description": "section",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/entities/section"
+      }
+    }
+    ,
+    "project": {
+        "description": "project",
+        "type": "object",
+        "required": [
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "group": {
+            "description": "The group of this project.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of this project.",
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of this project.",
+            "type": "string"
+          },
+          "author": {
+            "description": "The author of this project.",
+            "type": "string"
+          },
+          "licensor": {
+            "description": "The licensor of this project.",
+            "type": "string"
+          },
+          "license": {
+            "description": "The license of this project.",
+            "enum":[
+              "MIT",
+              "Apache2.0",
+              "Closed"
+            ],
+            "type": "string"
+          },
+          "version": {
+            "description": "The version of this project.",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "The namespace of this project.",
+            "type": "string"
+          },
+          "model_files": {
+            "type": "array",
+            "items": {
+            "description": "The model_files of this project.",
+            "type": "string"
+            }
+          },
+          "template_files": {
+            "type": "array",
+            "items": {
+            "description": "The template_files of this project.",
+            "type": "string"
+            }
+          },
+          "base_dir": {
+            "description": "The base_dir of this project.",
+            "type": "string"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+            "description": "The sources of this project.",
+            "type": "string"
+            }
+          },
+          "description": {
+            "description": "description",
+            "$ref": "#/definitions/entities/multilingual_text"
+          },
+          "subprojects": {
+            "description": "subprojects",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/project"
+            }
+          },
+          "source_repository": {
+            "description": "source_repository",
+            "$ref": "#/definitions/entities/source_repository"
+          },
+          "module_repositories": {
+            "description": "module_repositories",
+            "$ref": "#/definitions/entities/module_repository_list"
+          },
+          "document": {
+            "description": "document",
+            "$ref": "#/definitions/entities/document"
+          },
+          "scripts": {
+            "description": "scripts",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/script"
+            }
+          },
+          "models": {
+            "description": "models",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/module"
+            }
+          },
+          "templates": {
+            "description": "templates",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/module"
+            }
+          },
+          "plugins": {
+            "description": "plugins",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/module"
+            }
+          }
+        }
+      }
+    ,
+    "project_types": {
+      "description": "project_type",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/entities/project_type"
+      }
+    }
+    ,
+    "scripts": {
+      "description": "script",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/entities/script"
+      }
+    }
+    ,
+    "options": {
+      "description": "option",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/entities/option"
+      }
+    }
+    ,
+    "multilingual_texts": {
+      "description": "multilingual_text",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/entities/multilingual_text"
+      }
+    }
+  },
+  "definitions": {
+    "value_domain_types": {
+      "language_code": {
+        "description": "ISO-639-1 Language code",
+        "enum":[
+           "ab",
+           "aa",
+           "af",
+           "ak",
+           "sq",
+           "am",
+           "ar",
+           "an",
+           "hy",
+           "as",
+           "av",
+           "ae",
+           "ay",
+           "az",
+           "bm",
+           "ba",
+           "eu",
+           "be",
+           "bn",
+           "bh",
+           "bi",
+           "bs",
+           "br",
+           "bg",
+           "my",
+           "ca",
+           "ch",
+           "ce",
+           "ny",
+           "zh",
+           "zh-Hans",
+           "zh-Hant",
+           "cv",
+           "kw",
+           "co",
+           "cr",
+           "hr",
+           "cs",
+           "da",
+           "dv",
+           "nl",
+           "dz",
+           "en",
+           "eo",
+           "et",
+           "ee",
+           "fo",
+           "fj",
+           "fi",
+           "fr",
+           "ff",
+           "gl",
+           "gd",
+           "gv",
+           "ka",
+           "de",
+           "el",
+           "kl",
+           "gn",
+           "gu",
+           "ht",
+           "ha",
+           "he",
+           "hz",
+           "hi",
+           "ho",
+           "hu",
+           "is",
+           "io",
+           "ig",
+           "id, in",
+           "ia",
+           "ie",
+           "iu",
+           "ik",
+           "ga",
+           "it",
+           "ja",
+           "jv",
+           "kl",
+           "kn",
+           "kr",
+           "ks",
+           "kk",
+           "km",
+           "ki",
+           "rw",
+           "rn",
+           "ky",
+           "kv",
+           "kg",
+           "ko",
+           "ku",
+           "kj",
+           "lo",
+           "la",
+           "lv",
+           "li",
+           "ln",
+           "lt",
+           "lu",
+           "lg",
+           "lb",
+           "gv",
+           "mk",
+           "mg",
+           "ms",
+           "ml",
+           "mt",
+           "mi",
+           "mr",
+           "mh",
+           "mo",
+           "mn",
+           "na",
+           "nv",
+           "ng",
+           "nd",
+           "ne",
+           "no",
+           "nb",
+           "nn",
+           "ii",
+           "oc",
+           "oj",
+           "cu",
+           "or",
+           "om",
+           "os",
+           "pi",
+           "ps",
+           "fa",
+           "pl",
+           "pt",
+           "pa",
+           "qu",
+           "rm",
+           "ro",
+           "ru",
+           "se",
+           "sm",
+           "sg",
+           "sa",
+           "sr",
+           "sh",
+           "st",
+           "tn",
+           "sn",
+           "ii",
+           "sd",
+           "si",
+           "ss",
+           "sk",
+           "sl",
+           "so",
+           "nr",
+           "es",
+           "su",
+           "sw",
+           "ss",
+           "sv",
+           "tl",
+           "ty",
+           "tg",
+           "ta",
+           "tt",
+           "te",
+           "th",
+           "bo",
+           "ti",
+           "to",
+           "ts",
+           "tr",
+           "tk",
+           "tw",
+           "ug",
+           "uk",
+           "ur",
+           "uz",
+           "ve",
+           "vi",
+           "vo",
+           "wa",
+           "cy",
+           "wo",
+           "fy",
+           "xh",
+           "yi, ji",
+           "yo",
+           "za",
+           "zu"
+        ],
+        "type": "string"
+      }
+    },
+    "entities": {
+      "document": {
+        "description": "document",
+        "type": "object",
+        "required": [
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "description": "The title of this document.",
+            "type": "string"
+          },
+          "author": {
+            "description": "The author of this document.",
+            "type": "string"
+          },
+          "rights": {
+            "description": "The rights of this document.",
+            "type": "string"
+          },
+          "abstract": {
+            "description": "The abstract of this document.",
+            "type": "string"
+          },
+          "sections": {
+            "description": "sections",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/section"
+            }
+          },
+          "languages": {
+            "description": "languages",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/document_language"
+            }
+          }
+        }
+      },
+      "document_language": {
+        "description": "document_language",
+        "type": "object",
+        "required": [
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "description": "The name of this document_language.",
+            "type": "string"
+          },
+          "code": {
+            "allOf": [{
+            "description": "The code of this document_language.",
+            "type": "string"
+            }, {
+            "$ref": "#/definitions/value_domain_types/language_code"
+            }]
+          }
+        }
+      },
+      "section": {
+        "description": "section",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "description": "The name of this section.",
+            "type": "string"
+          },
+          "order": {
+            "description": "The order of this section.",
+            "type": "number"
+          },
+          "title": {
+            "description": "title",
+            "$ref": "#/definitions/entities/multilingual_text"
+          },
+          "content": {
+            "description": "content",
+            "$ref": "#/definitions/entities/multilingual_text"
+          },
+          "sub_sections": {
+            "description": "sub_sections",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/section"
+            }
+          }
+        }
+      },
+      "module": {
+        "description": "module",
+        "type": "object",
+        "required": [
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "description": "The name of this module.",
+            "type": "string"
+          },
+          "group": {
+            "description": "The group of this module.",
+            "type": "string"
+          },
+          "version": {
+            "description": "The version of this module.",
+            "type": "string"
+          }
+        }
+      },
+      "module_repository_list": {
+        "description": "module_repository_list",
+        "type": "object",
+        "required": [
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "local": {
+            "description": "The local of this module_repository_list.",
+            "type": "string"
+          },
+          "remote": {
+            "type": "array",
+            "items": {
+            "description": "The remote of this module_repository_list.",
+            "type": "string"
+            }
+          }
+        }
+      },
+      "project": {
+        "description": "project",
+        "type": "object",
+        "required": [
+          "group",
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "group": {
+            "description": "The group of this project.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of this project.",
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of this project.",
+            "type": "string"
+          },
+          "author": {
+            "description": "The author of this project.",
+            "type": "string"
+          },
+          "licensor": {
+            "description": "The licensor of this project.",
+            "type": "string"
+          },
+          "license": {
+            "description": "The license of this project.",
+            "enum":[
+              "MIT",
+              "Apache2.0",
+              "Closed"
+            ],
+            "type": "string"
+          },
+          "version": {
+            "description": "The version of this project.",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "The namespace of this project.",
+            "type": "string"
+          },
+          "model_files": {
+            "type": "array",
+            "items": {
+            "description": "The model_files of this project.",
+            "type": "string"
+            }
+          },
+          "template_files": {
+            "type": "array",
+            "items": {
+            "description": "The template_files of this project.",
+            "type": "string"
+            }
+          },
+          "base_dir": {
+            "description": "The base_dir of this project.",
+            "type": "string"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+            "description": "The sources of this project.",
+            "type": "string"
+            }
+          },
+          "description": {
+            "description": "description",
+            "$ref": "#/definitions/entities/multilingual_text"
+          },
+          "subprojects": {
+            "description": "subprojects",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/project"
+            }
+          },
+          "source_repository": {
+            "description": "source_repository",
+            "$ref": "#/definitions/entities/source_repository"
+          },
+          "module_repositories": {
+            "description": "module_repositories",
+            "$ref": "#/definitions/entities/module_repository_list"
+          },
+          "document": {
+            "description": "document",
+            "$ref": "#/definitions/entities/document"
+          },
+          "scripts": {
+            "description": "scripts",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/script"
+            }
+          },
+          "models": {
+            "description": "models",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/module"
+            }
+          },
+          "templates": {
+            "description": "templates",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/module"
+            }
+          },
+          "plugins": {
+            "description": "plugins",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/module"
+            }
+          }
+        }
+      },
+      "project_type": {
+        "description": "project_type",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "description": "The name of this project_type.",
+            "type": "string"
+          },
+          "role": {
+            "description": "The role of this project_type.",
+            "enum":[
+              "generator",
+              "model",
+              "template",
+              "plugin"
+            ],
+            "type": "string"
+          },
+          "description": {
+            "description": "The description of this project_type.",
+            "type": "string"
+          },
+          "base_type_name": {
+            "description": "The base_type_name of this project_type.",
+            "type": "string"
+          },
+          "models": {
+            "description": "models",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/module"
+            }
+          },
+          "templates": {
+            "description": "templates",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/module"
+            }
+          },
+          "plugins": {
+            "description": "plugins",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/module"
+            }
+          }
+        }
+      },
+      "script": {
+        "description": "script",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "description": "The name of this script.",
+            "type": "string"
+          },
+          "description": {
+            "description": "description",
+            "$ref": "#/definitions/entities/multilingual_text"
+          },
+          "options": {
+            "description": "options",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/entities/option"
+            }
+          }
+        }
+      },
+      "option": {
+        "description": "option",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "description": "The name of this option.",
+            "type": "string"
+          },
+          "is_flag": {
+            "description": "Defines this option is is_flag or not.",
+            "type": "boolean"
+          },
+          "is_interactive": {
+            "description": "Defines this option is is_interactive or not.",
+            "type": "boolean"
+          },
+          "prompt": {
+            "description": "The prompt of this option.",
+            "type": "string"
+          },
+          "default_value": {
+            "description": "The default_value of this option.",
+            "type": "string"
+          },
+          "is_multiple": {
+            "description": "Defines this option is is_multiple or not.",
+            "type": "boolean"
+          },
+          "is_required": {
+            "description": "Defines this option is is_required or not.",
+            "type": "boolean"
+          },
+          "short_name": {
+            "description": "The short_name of this option.",
+            "pattern": "^[0-9a-zA-Z]$",
+            "type": "string"
+          },
+          "description": {
+            "description": "description",
+            "$ref": "#/definitions/entities/multilingual_text"
+          }
+        }
+      },
+      "source_repository": {
+        "description": "source_repository",
+        "type": "object",
+        "required": [
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "url": {
+            "description": "The url of this source_repository.",
+            "type": "string"
+          },
+          "branch": {
+            "description": "The branch of this source_repository.",
+            "type": "string"
+          }
+        }
+      },
+      "localized_text": {
+        "description": "localized_text",
+        "type": "object",
+        "required": [
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "language": {
+            "description": "The language of this localized_text.",
+            "type": "string"
+          },
+          "content": {
+            "description": "The content of this localized_text.",
+            "type": "string"
+          }
+        }
+      },
+      "multilingual_text": {
+        "description": "multilingual_text",
+        "type": "object",
+        "required": [
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "ab": {
+            "description": "In Abkhazian",
+            "type": "string"
+          },
+          "aa": {
+            "description": "In Afar",
+            "type": "string"
+          },
+          "af": {
+            "description": "In Afrikaans",
+            "type": "string"
+          },
+          "ak": {
+            "description": "In Akan",
+            "type": "string"
+          },
+          "sq": {
+            "description": "In Albanian",
+            "type": "string"
+          },
+          "am": {
+            "description": "In Amharic",
+            "type": "string"
+          },
+          "ar": {
+            "description": "In Arabic",
+            "type": "string"
+          },
+          "an": {
+            "description": "In Aragonese",
+            "type": "string"
+          },
+          "hy": {
+            "description": "In Armenian",
+            "type": "string"
+          },
+          "lang_as": {
+            "description": "In Assamese",
+            "type": "string"
+          },
+          "av": {
+            "description": "In Avaric",
+            "type": "string"
+          },
+          "ae": {
+            "description": "In Avestan",
+            "type": "string"
+          },
+          "ay": {
+            "description": "In Aymara",
+            "type": "string"
+          },
+          "az": {
+            "description": "In Azerbaijani",
+            "type": "string"
+          },
+          "bm": {
+            "description": "In Bambara",
+            "type": "string"
+          },
+          "ba": {
+            "description": "In Bashkir",
+            "type": "string"
+          },
+          "eu": {
+            "description": "In Basque",
+            "type": "string"
+          },
+          "be": {
+            "description": "In Belarusian",
+            "type": "string"
+          },
+          "bn": {
+            "description": "In Bengali (Bangla)",
+            "type": "string"
+          },
+          "bh": {
+            "description": "In Bihari",
+            "type": "string"
+          },
+          "bi": {
+            "description": "In Bislama",
+            "type": "string"
+          },
+          "bs": {
+            "description": "In Bosnian",
+            "type": "string"
+          },
+          "br": {
+            "description": "In Breton",
+            "type": "string"
+          },
+          "bg": {
+            "description": "In Bulgarian",
+            "type": "string"
+          },
+          "my": {
+            "description": "In Burmese",
+            "type": "string"
+          },
+          "ca": {
+            "description": "In Catalan",
+            "type": "string"
+          },
+          "ch": {
+            "description": "In Chamorro",
+            "type": "string"
+          },
+          "ce": {
+            "description": "In Chechen",
+            "type": "string"
+          },
+          "ny": {
+            "description": "In Chichewa, Chewa, Nyanja",
+            "type": "string"
+          },
+          "zh": {
+            "description": "In Chinese",
+            "type": "string"
+          },
+          "zh_hans": {
+            "description": "In Chinese (Simplified)",
+            "type": "string"
+          },
+          "zh_hant": {
+            "description": "In Chinese (Traditional)",
+            "type": "string"
+          },
+          "cv": {
+            "description": "In Chuvash",
+            "type": "string"
+          },
+          "kw": {
+            "description": "In Cornish",
+            "type": "string"
+          },
+          "co": {
+            "description": "In Corsican",
+            "type": "string"
+          },
+          "cr": {
+            "description": "In Cree",
+            "type": "string"
+          },
+          "hr": {
+            "description": "In Croatian",
+            "type": "string"
+          },
+          "cs": {
+            "description": "In Czech",
+            "type": "string"
+          },
+          "da": {
+            "description": "In Danish",
+            "type": "string"
+          },
+          "dv": {
+            "description": "In Divehi, Dhivehi, Maldivian",
+            "type": "string"
+          },
+          "nl": {
+            "description": "In Dutch",
+            "type": "string"
+          },
+          "dz": {
+            "description": "In Dzongkha",
+            "type": "string"
+          },
+          "en": {
+            "description": "In English",
+            "type": "string"
+          },
+          "eo": {
+            "description": "In Esperanto",
+            "type": "string"
+          },
+          "et": {
+            "description": "In Estonian",
+            "type": "string"
+          },
+          "ee": {
+            "description": "In Ewe",
+            "type": "string"
+          },
+          "fo": {
+            "description": "In Faroese",
+            "type": "string"
+          },
+          "fj": {
+            "description": "In Fijian",
+            "type": "string"
+          },
+          "fi": {
+            "description": "In Finnish",
+            "type": "string"
+          },
+          "fr": {
+            "description": "In French",
+            "type": "string"
+          },
+          "ff": {
+            "description": "In Fula, Fulah, Pulaar, Pular",
+            "type": "string"
+          },
+          "gl": {
+            "description": "In Galician",
+            "type": "string"
+          },
+          "gd": {
+            "description": "In Gaelic (Scottish)",
+            "type": "string"
+          },
+          "gv": {
+            "description": "In Manx",
+            "type": "string"
+          },
+          "ka": {
+            "description": "In Georgian",
+            "type": "string"
+          },
+          "de": {
+            "description": "In German",
+            "type": "string"
+          },
+          "el": {
+            "description": "In Greek",
+            "type": "string"
+          },
+          "kl": {
+            "description": "In Kalaallisut, Greenlandic",
+            "type": "string"
+          },
+          "gn": {
+            "description": "In Guarani",
+            "type": "string"
+          },
+          "gu": {
+            "description": "In Gujarati",
+            "type": "string"
+          },
+          "ht": {
+            "description": "In Haitian Creole",
+            "type": "string"
+          },
+          "ha": {
+            "description": "In Hausa",
+            "type": "string"
+          },
+          "he": {
+            "description": "In Hebrew",
+            "type": "string"
+          },
+          "hz": {
+            "description": "In Herero",
+            "type": "string"
+          },
+          "hi": {
+            "description": "In Hindi",
+            "type": "string"
+          },
+          "ho": {
+            "description": "In Hiri Motu",
+            "type": "string"
+          },
+          "hu": {
+            "description": "In Hungarian",
+            "type": "string"
+          },
+          "lang_is": {
+            "description": "In Icelandic",
+            "type": "string"
+          },
+          "io": {
+            "description": "In Ido",
+            "type": "string"
+          },
+          "ig": {
+            "description": "In Igbo",
+            "type": "string"
+          },
+          "id_in": {
+            "description": "In Indonesian",
+            "type": "string"
+          },
+          "ia": {
+            "description": "In Interlingua",
+            "type": "string"
+          },
+          "ie": {
+            "description": "In Interlingue",
+            "type": "string"
+          },
+          "iu": {
+            "description": "In Inuktitut",
+            "type": "string"
+          },
+          "ik": {
+            "description": "In Inupiak",
+            "type": "string"
+          },
+          "ga": {
+            "description": "In Irish",
+            "type": "string"
+          },
+          "it": {
+            "description": "In Italian",
+            "type": "string"
+          },
+          "ja": {
+            "description": "In Japanese",
+            "type": "string"
+          },
+          "jv": {
+            "description": "In Javanese",
+            "type": "string"
+          },
+          "kn": {
+            "description": "In Kannada",
+            "type": "string"
+          },
+          "kr": {
+            "description": "In Kanuri",
+            "type": "string"
+          },
+          "ks": {
+            "description": "In Kashmiri",
+            "type": "string"
+          },
+          "kk": {
+            "description": "In Kazakh",
+            "type": "string"
+          },
+          "km": {
+            "description": "In Khmer",
+            "type": "string"
+          },
+          "ki": {
+            "description": "In Kikuyu",
+            "type": "string"
+          },
+          "rw": {
+            "description": "In Kinyarwanda (Rwanda)",
+            "type": "string"
+          },
+          "rn": {
+            "description": "In Kirundi",
+            "type": "string"
+          },
+          "ky": {
+            "description": "In Kyrgyz",
+            "type": "string"
+          },
+          "kv": {
+            "description": "In Komi",
+            "type": "string"
+          },
+          "kg": {
+            "description": "In Kongo",
+            "type": "string"
+          },
+          "ko": {
+            "description": "In Korean",
+            "type": "string"
+          },
+          "ku": {
+            "description": "In Kurdish",
+            "type": "string"
+          },
+          "kj": {
+            "description": "In Kwanyama",
+            "type": "string"
+          },
+          "lo": {
+            "description": "In Lao",
+            "type": "string"
+          },
+          "la": {
+            "description": "In Latin",
+            "type": "string"
+          },
+          "lv": {
+            "description": "In Latvian (Lettish)",
+            "type": "string"
+          },
+          "li": {
+            "description": "In Limburgish ( Limburger)",
+            "type": "string"
+          },
+          "ln": {
+            "description": "In Lingala",
+            "type": "string"
+          },
+          "lt": {
+            "description": "In Lithuanian",
+            "type": "string"
+          },
+          "lu": {
+            "description": "In Luga-Katanga",
+            "type": "string"
+          },
+          "lg": {
+            "description": "In Luganda, Ganda",
+            "type": "string"
+          },
+          "lb": {
+            "description": "In Luxembourgish",
+            "type": "string"
+          },
+          "mk": {
+            "description": "In Macedonian",
+            "type": "string"
+          },
+          "mg": {
+            "description": "In Malagasy",
+            "type": "string"
+          },
+          "ms": {
+            "description": "In Malay",
+            "type": "string"
+          },
+          "ml": {
+            "description": "In Malayalam",
+            "type": "string"
+          },
+          "mt": {
+            "description": "In Maltese",
+            "type": "string"
+          },
+          "mi": {
+            "description": "In Maori",
+            "type": "string"
+          },
+          "mr": {
+            "description": "In Marathi",
+            "type": "string"
+          },
+          "mh": {
+            "description": "In Marshallese",
+            "type": "string"
+          },
+          "mo": {
+            "description": "In Moldavian",
+            "type": "string"
+          },
+          "mn": {
+            "description": "In Mongolian",
+            "type": "string"
+          },
+          "na": {
+            "description": "In Nauru",
+            "type": "string"
+          },
+          "nv": {
+            "description": "In Navajo",
+            "type": "string"
+          },
+          "ng": {
+            "description": "In Ndonga",
+            "type": "string"
+          },
+          "nd": {
+            "description": "In Northern Ndebele",
+            "type": "string"
+          },
+          "ne": {
+            "description": "In Nepali",
+            "type": "string"
+          },
+          "no": {
+            "description": "In Norwegian",
+            "type": "string"
+          },
+          "nb": {
+            "description": "In Norwegian bokmål",
+            "type": "string"
+          },
+          "nn": {
+            "description": "In Norwegian nynorsk",
+            "type": "string"
+          },
+          "ii": {
+            "description": "In Sichuan Yi",
+            "type": "string"
+          },
+          "oc": {
+            "description": "In Occitan",
+            "type": "string"
+          },
+          "oj": {
+            "description": "In Ojibwe",
+            "type": "string"
+          },
+          "cu": {
+            "description": "In Old Church Slavonic, Old Bulgarian",
+            "type": "string"
+          },
+          "or": {
+            "description": "In Oriya",
+            "type": "string"
+          },
+          "om": {
+            "description": "In Oromo (Afaan Oromo)",
+            "type": "string"
+          },
+          "os": {
+            "description": "In Ossetian",
+            "type": "string"
+          },
+          "pi": {
+            "description": "In Pāli",
+            "type": "string"
+          },
+          "ps": {
+            "description": "In Pashto, Pushto",
+            "type": "string"
+          },
+          "fa": {
+            "description": "In Persian (Farsi)",
+            "type": "string"
+          },
+          "pl": {
+            "description": "In Polish",
+            "type": "string"
+          },
+          "pt": {
+            "description": "In Portuguese",
+            "type": "string"
+          },
+          "pa": {
+            "description": "In Punjabi (Eastern)",
+            "type": "string"
+          },
+          "qu": {
+            "description": "In Quechua",
+            "type": "string"
+          },
+          "rm": {
+            "description": "In Romansh",
+            "type": "string"
+          },
+          "ro": {
+            "description": "In Romanian",
+            "type": "string"
+          },
+          "ru": {
+            "description": "In Russian",
+            "type": "string"
+          },
+          "se": {
+            "description": "In Sami",
+            "type": "string"
+          },
+          "sm": {
+            "description": "In Samoan",
+            "type": "string"
+          },
+          "sg": {
+            "description": "In Sango",
+            "type": "string"
+          },
+          "sa": {
+            "description": "In Sanskrit",
+            "type": "string"
+          },
+          "sr": {
+            "description": "In Serbian",
+            "type": "string"
+          },
+          "sh": {
+            "description": "In Serbo-Croatian",
+            "type": "string"
+          },
+          "st": {
+            "description": "In Sesotho",
+            "type": "string"
+          },
+          "tn": {
+            "description": "In Setswana",
+            "type": "string"
+          },
+          "sn": {
+            "description": "In Shona",
+            "type": "string"
+          },
+          "sd": {
+            "description": "In Sindhi",
+            "type": "string"
+          },
+          "si": {
+            "description": "In Sinhalese",
+            "type": "string"
+          },
+          "ss": {
+            "description": "In Swati",
+            "type": "string"
+          },
+          "sk": {
+            "description": "In Slovak",
+            "type": "string"
+          },
+          "sl": {
+            "description": "In Slovenian",
+            "type": "string"
+          },
+          "so": {
+            "description": "In Somali",
+            "type": "string"
+          },
+          "nr": {
+            "description": "In Southern Ndebele",
+            "type": "string"
+          },
+          "es": {
+            "description": "In Spanish",
+            "type": "string"
+          },
+          "su": {
+            "description": "In Sundanese",
+            "type": "string"
+          },
+          "sw": {
+            "description": "In Swahili (Kiswahili)",
+            "type": "string"
+          },
+          "sv": {
+            "description": "In Swedish",
+            "type": "string"
+          },
+          "tl": {
+            "description": "In Tagalog",
+            "type": "string"
+          },
+          "ty": {
+            "description": "In Tahitian",
+            "type": "string"
+          },
+          "tg": {
+            "description": "In Tajik",
+            "type": "string"
+          },
+          "ta": {
+            "description": "In Tamil",
+            "type": "string"
+          },
+          "tt": {
+            "description": "In Tatar",
+            "type": "string"
+          },
+          "te": {
+            "description": "In Telugu",
+            "type": "string"
+          },
+          "th": {
+            "description": "In Thai",
+            "type": "string"
+          },
+          "bo": {
+            "description": "In Tibetan",
+            "type": "string"
+          },
+          "ti": {
+            "description": "In Tigrinya",
+            "type": "string"
+          },
+          "to": {
+            "description": "In Tonga",
+            "type": "string"
+          },
+          "ts": {
+            "description": "In Tsonga",
+            "type": "string"
+          },
+          "tr": {
+            "description": "In Turkish",
+            "type": "string"
+          },
+          "tk": {
+            "description": "In Turkmen",
+            "type": "string"
+          },
+          "tw": {
+            "description": "In Twi",
+            "type": "string"
+          },
+          "ug": {
+            "description": "In Uyghur",
+            "type": "string"
+          },
+          "uk": {
+            "description": "In Ukrainian",
+            "type": "string"
+          },
+          "ur": {
+            "description": "In Urdu",
+            "type": "string"
+          },
+          "uz": {
+            "description": "In Uzbek",
+            "type": "string"
+          },
+          "ve": {
+            "description": "In Venda",
+            "type": "string"
+          },
+          "vi": {
+            "description": "In Vietnamese",
+            "type": "string"
+          },
+          "vo": {
+            "description": "In Volapük",
+            "type": "string"
+          },
+          "wa": {
+            "description": "In Wallon",
+            "type": "string"
+          },
+          "cy": {
+            "description": "In Welsh",
+            "type": "string"
+          },
+          "wo": {
+            "description": "In Wolof",
+            "type": "string"
+          },
+          "fy": {
+            "description": "In Western Frisian",
+            "type": "string"
+          },
+          "xh": {
+            "description": "In Xhosa",
+            "type": "string"
+          },
+          "yi_ji": {
+            "description": "In Yiddish",
+            "type": "string"
+          },
+          "yo": {
+            "description": "In Yoruba",
+            "type": "string"
+          },
+          "za": {
+            "description": "In Zhuang, Chuang",
+            "type": "string"
+          },
+          "zu": {
+            "description": "In Zulu",
+            "type": "string"
+          }
+        }
+      },
+      "named_param": {
+        "description": "named_param",
+        "type": "object",
+        "required": [
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "description": "The name of this named_param.",
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of this named_param.",
+            "type": "string"
+          },
+          "description": {
+            "description": "The description of this named_param.",
+            "type": "string"
+          }
+        }
+      },
+      "named_value": {
+        "description": "named_value",
+        "type": "object",
+        "required": [
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "description": "The name of this named_value.",
+            "type": "string"
+          },
+          "expression": {
+            "description": "The expression of this named_value.",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+# General
+*.tmp
+*.log
+*.swp
+
+# General - Windows
+Thumbs.db
+*.lnk
+~$*
+
+
+# General - MacOS
+.DS_Store
+
+# VSCode
+/vscode/
+# /.vscode/
+*.code-workspace
+
+# Java development
+.metadata
+.project
+.classpath
+.settings/
+.gradle/
+.idea/
+bin/
+build/
+out/
+
+# Laplacian projects
+.NEXT/
+.PREV/
+/dest/

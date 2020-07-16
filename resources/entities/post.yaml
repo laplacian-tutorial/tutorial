@@ -1,0 +1,36 @@
+entities:
+- name: post
+  namespace: laplacian.tutorial
+
+  properties:
+  - name: id
+    type: number
+    primary_key: true
+
+  - name: user_id
+    type: number
+
+  - name: title
+    type: string
+    size: 4096
+
+  - name: body
+    type: string
+    size: 4096
+
+  relationships:
+  - name: posted_by
+    reference_entity_name: user
+    cardinality: '0..1'
+    mappings:
+    - from: user_id
+      to: id
+
+  - name: comments
+    reference_entity_name: comment
+    cardinality: '*'
+    mappings:
+    - from: id
+      to: post_id
+
+

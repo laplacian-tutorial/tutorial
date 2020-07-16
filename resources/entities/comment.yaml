@@ -1,0 +1,30 @@
+entities:
+- name: comment
+  namespace: laplacian.tutorial
+
+  properties:
+  - name: post_id
+    type: number
+    primary_key: true
+
+  - name: seq_number
+    type: number
+    primary_key: true
+
+  - name: name
+    type: string
+
+  - name: email
+    type: string
+
+  - name: body
+    type: string
+    size: 4096
+
+  relationships:
+  - name: post
+    reference_entity_name: post
+    cardinality: '1'
+    mappings:
+    - from: post_id
+      to: id

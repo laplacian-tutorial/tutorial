@@ -1,0 +1,12 @@
+tasks:
+{{~#unless todos}}
+  []
+{{else}}
+{{#each todos as |todo| ~}}
+- id: {{todo.id}}
+  user_id: {{todo.userId}}
+  title: |
+    {{shift todo.title 4}}
+  completed: {{todo.completed}}
+{{/each}}
+{{/unless}}

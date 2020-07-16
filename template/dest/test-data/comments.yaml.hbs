@@ -1,0 +1,15 @@
+comments:
+{{~#unless comments}}
+  []
+{{else}}
+{{#each comments as |comment| ~}}
+- seq_number: {{comment.id}}
+  post_id: {{comment.postId}}
+  email: |
+    {{comment.email}}
+  name: |
+    {{comment.name}}
+  body: |
+    {{shift comment.body 4}}
+{{/each}}
+{{/unless}}

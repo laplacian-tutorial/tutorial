@@ -1,0 +1,32 @@
+entities:
+- name: photo
+  namespace: laplacian.tutorial
+
+  properties:
+  - name: id
+    type: number
+    primary_key: true
+
+  - name: album_id
+    type: number
+
+  - name: title
+    type: string
+    size: 4096
+    optional: true
+    default_value: |
+      ""
+
+  - name: url
+    type: string
+
+  - name: thumbnailUrl
+    type: string
+
+  relationships:
+  - name: album
+    reference_entity_name: album
+    cardinality: '1'
+    mappings:
+    - from: album_id
+      to: id
