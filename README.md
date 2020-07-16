@@ -9,10 +9,10 @@ Laplacian自動生成基盤を利用したアプリケーション開発を行�
 
 本手順を実施する前に、下記の手順のいずれかに従って開発環境を構築してください。
 
-- [開発環境構築手順(MacOSX)](./macosx.md)
-- [開発環境構築手順(Windows10 WSL1)](./wsl1.md)
-- [開発環境構築手順(Windows10 WSL2)](./wsl2.md)
-- [開発環境構築手順(Dockerコンテナ)](./docker.md)
+- 開発環境構築手順(MacOSX)
+- [開発環境構築手順(Windows10 WSL1)](./001_setup_on_wsl1.md)
+- 開発環境構築手順(Windows10 WSL2)
+- 開発環境構築手順(Dockerコンテナ)
 
 ## 作業手順
 
