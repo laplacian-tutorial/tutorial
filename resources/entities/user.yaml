@@ -48,3 +48,10 @@ entities:
     mappings:
     - from: id
       to: user_id
+
+  - name: posts
+    reference_entity_name: post
+    cardinality: '*'
+    mappings:
+    - from: id
+      to: user_id

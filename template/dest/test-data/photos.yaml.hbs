@@ -11,5 +11,7 @@ photos:
     {{photo.url}}
   thumbnail_url: |
     {{photo.thumbnailUrl}}
+  date_taken: |
+    {{fake 'date-in-last-decade' "yyyy-MM-dd'T'hh:ss:mm"}}
 {{/each}}
 {{/unless}}

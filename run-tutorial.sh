@@ -57,6 +57,8 @@ _020_creating_application_domain_model() {
   (cd ./subprojects/domain-model/
     mkdir -p ./src/model/entities
     cp -r $BASE_DIR/resources/entities/*.yaml ./src/model/entities
+    mkdir -p ./src/model/value-domain-types
+    cp -r $BASE_DIR/resources/value-domain-types/*.yaml ./src/model/value-domain-types
   )
   ./scripts/generate-domain-model.sh
   git add .

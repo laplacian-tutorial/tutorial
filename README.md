@@ -1,49 +1,147 @@
-# アプリケーション開発手順
+<!-- @head-content@ -->
+# laplacian/tutorial
 
-Laplacian自動生成基盤を利用したアプリケーション開発を行う際の手順を解説します。
+tutorial projects.
 
-## 事前準備
 
-本手順は **MacOSX** または **Windows10 WSL1 / WSL2** がインストールされた実端末、
-もしくは仮想環境(**Docker**コンテナ)上で実施することができます。
+*Read this in other languages*: [[日本語](README_ja.md)] [[简体中文](README_zh.md)]
+<!-- @head-content@ -->
 
-本手順を実施する前に、下記の手順のいずれかに従って開発環境を構築してください。
+<!-- @toc@ -->
+## Table of contents
+- [Index](#index)
 
-- 開発環境構築手順(MacOSX)
-- [開発環境構築手順(Windows10 WSL1)](./001_setup_on_wsl1.md)
-- 開発環境構築手順(Windows10 WSL2)
-- 開発環境構築手順(Dockerコンテナ)
+  * [Script List](#script-list)
 
-## 作業手順
+  * [Source code list](#source-code-list)
 
-### [プロジェクトグループの作成](./010_creating_project_group.md)
 
-アプリケーションを構成する各プロジェクトを管理するプロジェクトグループを作成します。
 
-### [アプリケーションドメインモデルの作成](./020_creating_application_domain_model.md)
+<!-- @toc@ -->
 
-アプリケーションの問題領域を表現するドメインモデルを作成します。
+<!-- @main-content@ -->
+## Index
 
-### [アプリケーションAPIモデルの作成](./030_creating_application_api_model.md)
 
-APIの機能と構成を定義するモデルを作成します。
+### Script List
 
-### [APIサービスの生成と動作確認](./040_generating_and_testing_api_service.md)
 
-アプリケーションAPIモデルから、APIサービスの実装を生成し、ローカルでの動作を確認します。
+- [./script/generate.sh](<./scripts/generate.sh>)
 
-### [アプリケーションUIモデルの作成](./050_creating_application_ui_model.md)
+  Generates the resources in each directory of `src/` `model/` `template/` in this project.
+  The results are reflected in each directory of `dest/` `doc/` `script/`.
 
-クライアントアプリケーションのUIを定義するモデルを作成します。
+  *Generator input files*
 
-### [Webクライアントアプリケーションの生成と動作確認](./060.md)
+  - `src/`
+    Stores static resources that are not processed the generator.
+    The contents of this directory are copied directly into the `dest/` directory.
 
-アプリケーションUIモデルから、Webクライアントアプリケーションを生成し、ローカルでの動作を確認します。
+  - `model/`
+    Stores the static model data files written in *YAML* or *JSON* format used for the generation.
 
-### [デプロイメントモデルの作成](./070_creating_deployment_model.md)
+  - `template/`
+    This directory contains the template files used for the generation.
+    Files with a extension `.hbs` will be handled as templates. All other files are copied as is.
 
-アプリケーションモデルから生成されたアプリケーションの各種環境へのデプロイを定義するモデルを作成します。
+    - `template/dest` `template/doc` `template/scripts`
+      Each of these directories contains the template files of the resource to be output
+      in the directory `dest/` `doc/` `scripts`.
 
-### [クラウド環境へのデプロイ](./080_creating_deployment_model.md)
+    - `template/model` `template/template`
+      These directories store template files updating the contents of `template/` and `model/` used for the generation.
+      If the content of `template/` `model/` is updated as a result of the generation,
+      the generation process is executed recursively.
+      The changes to `template/` `model/` that occur during the above process are treated as an intermediate state
+      and will be lost after the completion of the process.
+      Use the *--dry-run* option to check these intermediate files.
 
-アプリケーションモデルとデプロイメントモデルからクラウド環境へのデプロイを行うスクリプトを生成し、実際にデプロイを行います。
+  *Generator output files*
+
+  - `dest/`
+    Outputs the source files of applications and modules created as the result of
+    the generation process.
+
+  - `doc/`
+    Outputs the project documentation.
+
+  - `scripts/`
+    Outputs various scripts used in development and operation.
+
+  > Usage: generate.sh [OPTION]...
+  >
+  > -h, --help
+  >
+  >   Displays how to use this command.
+  >   
+  > -v, --verbose
+  >
+  >   Displays more detailed command execution information.
+  >   
+  > -d, --dry-run
+  >
+  >   After this command is processed, the generated files are output to the `.NEXT` directory
+  >   without reflecting to the folders of `dest/` `doc/` `scripts/`.
+  >   In addition, the difference between the contents of the `.NEXT` directory and the current files.
+  >   This directory also contains any intermediate files created during the generation.
+  >   
+  > -r, --max-recursion [VALUE]
+  >
+  >   The upper limit of the number of times to execute recursively
+  >   when the contents of the `model/` `template/` directory are updated
+  >   during the generation process.
+  >    (Default: 10)
+  > , --local-module-repository [VALUE]
+  >
+  >   The repository path to store locally built modules.
+  >   The modules in this repository have the highest priority.
+  >   
+  > , --updates-scripts-only
+  >
+  >   Updates script files only.
+  >   This option is used to generate the generator script itself
+  >   when the project is initially generated.
+  >   
+- [./script/publish-local.sh](<./scripts/publish-local.sh>)
+
+  After the resources in the project are generated,
+  the resources in the `./dest` directory are built as a generator module
+  and registered in the local repository.
+
+  > Usage: publish-local.sh [OPTION]...
+  >
+  > -h, --help
+  >
+  >   Displays how to use this command.
+  >   
+  > -v, --verbose
+  >
+  >   Displays more detailed command execution information.
+  >   
+  > -r, --max-recursion [VALUE]
+  >
+  >   This option is the same as the option of the same name in [generate.sh](<./scripts/generate.sh>).
+  >    (Default: 10)
+  > , --skip-generation
+  >
+  >   This option is the same as the option of the same name in [generate.sh](<./scripts/generate.sh>).
+  >   
+  > , --local-module-repository [VALUE]
+  >
+  >   The path to the local repository where the built module will be stored.
+  >   If the repository does not exist in the specified path, it will be created automatically.
+  >   
+### Source code list
+
+
+- [model/project.yaml](<./model/project.yaml>)
+- [model/test-data/data.json](<./model/test-data/data.json>)
+- [template/dest/test-data/albums.yaml.hbs](<./template/dest/test-data/albums.yaml.hbs>)
+- [template/dest/test-data/comments.yaml.hbs](<./template/dest/test-data/comments.yaml.hbs>)
+- [template/dest/test-data/photos.yaml.hbs](<./template/dest/test-data/photos.yaml.hbs>)
+- [template/dest/test-data/posts.yaml.hbs](<./template/dest/test-data/posts.yaml.hbs>)
+- [template/dest/test-data/tasks.yaml.hbs](<./template/dest/test-data/tasks.yaml.hbs>)
+- [template/dest/test-data/users.yaml.hbs](<./template/dest/test-data/users.yaml.hbs>)
+
+
+<!-- @main-content@ -->

@@ -23,6 +23,10 @@ entities:
   - name: thumbnailUrl
     type: string
 
+  - name: date_taken
+    type: string
+    domain_type_name: date
+
   relationships:
   - name: album
     reference_entity_name: album
