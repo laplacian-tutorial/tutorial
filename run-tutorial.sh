@@ -164,7 +164,7 @@ EOF
   ./subprojects/java-stack-service/scripts/generate.sh
   git add .
   git commit -m 'add test data.'
-  ./subprojects/java-stack-service/scripts/deploy-on-local-containers.sh
+  ./subprojects/java-stack-service/scripts/deploy-on-local-dev.sh
 }
 
 $MAIN
