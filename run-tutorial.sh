@@ -102,14 +102,14 @@ EOF
   git add .
   git commit -m 'add function-model subproject.'
   (cd ./subprojects/function-model/
-    mkdir -p src/model/datasources
-    cp -r $BASE_DIR/resources/datasources/*.yaml src/model/datasources/
     mkdir -p src/model/services
     cp $BASE_DIR/resources/services/*.yaml src/model/services/
-    mkdir -p src/model/rest-resources
-    cp $BASE_DIR/resources/rest-resources/*.yaml src/model/rest-resources/
     mkdir -p src/model/graphql-types
     cp $BASE_DIR/resources/graphql-types/*.yaml src/model/graphql-types/
+    mkdir -p src/model/environments
+    cp $BASE_DIR/resources/environments/*.yaml src/model/environments
+    mkdir -p src/model/components
+    cp $BASE_DIR/resources/components/*.yaml src/model/components
   )
   ./scripts/generate-function-model.sh
   git add .
@@ -164,7 +164,7 @@ EOF
   ./subprojects/java-stack-service/scripts/generate.sh
   git add .
   git commit -m 'add test data.'
-  ./subprojects/java-stack-service/scripts/deploy-on-local-dev.sh
+  ./subprojects/java-stack-service/scripts/deploy-on-local.sh
 }
 
 $MAIN

@@ -1,0 +1,6 @@
+components:
+- name: test_db
+  type: postgres_test_db
+  username: test
+  password: secret
+  database_name: tutorial_db

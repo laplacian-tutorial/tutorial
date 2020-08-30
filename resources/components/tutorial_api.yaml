@@ -1,0 +1,7 @@
+components:
+- name: tutorial_api
+  type: springboot2_api_service
+  function_model_name: tutorial_api
+  datasource_mappings:
+  - name: default
+    component_name: test_db

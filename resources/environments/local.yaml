@@ -1,0 +1,6 @@
+environments:
+- tier: local
+  name: local
+  component_entries:
+  - name: tutorial_api
+  - name: test_db
