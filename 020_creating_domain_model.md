@@ -1,4 +1,4 @@
-# アプリケーションドメインモデルの作成
+# ドメインモデルの作成
 
 アプリケーションの問題領域を表現するドメインモデルを定義します。
 
@@ -141,6 +141,12 @@
     >
     > ![model validation error](./images/model-validation-error.png)
 
+4. **作成したドメインモデルおよびプラグインをローカルモジュールリポジトリに登録**
+
+    ```console
+    ./scripts/publish-local-domain-model.sh
+    ```
+
     作成したモデルをコミットします。
 
     ```console
@@ -149,10 +155,4 @@
 
     ```console
     git commit -m 'add domain models.'
-    ```
-
-4. **作成したドメインモデルおよびプラグインをローカルモジュールリポジトリに登録**
-
-    ```console
-    ./scripts/publish-local-domain-model.sh
     ```

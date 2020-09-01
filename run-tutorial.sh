@@ -69,16 +69,16 @@ _020_creating_application_domain_model() {
 _030_creating_application_api_model() {
   cd $PROJECT_BASE_DIR
   cd laplacian-tutorial
-  ./scripts/create-new-function-model-project.sh
-  cat <<'EOF' > 'model/project/subprojects/function-model.yaml'
+  ./scripts/create-new-application-model-project.sh
+  cat <<'EOF' > 'model/project/subprojects/application-model.yaml'
 _description: &description
   en: |
-    The function-model project.
+    The application-model project.
 
 _project: &project
   group: laplacian-tutorial
-  type: function-model
-  name: function-model
+  type: application-model
+  name: application-model
   namespace: laplacian.tutorial
   description: *description
   version: '0.0.1'
@@ -98,10 +98,10 @@ project:
   - *project
 EOF
   ./scripts/generate.sh
-  ./scripts/generate-function-model.sh
+  ./scripts/generate-application-model.sh
   git add .
-  git commit -m 'add function-model subproject.'
-  (cd ./subprojects/function-model/
+  git commit -m 'add application-model subproject.'
+  (cd ./subprojects/application-model/
     mkdir -p src/model/services
     cp $BASE_DIR/resources/services/*.yaml src/model/services/
     mkdir -p src/model/graphql-types
@@ -111,10 +111,10 @@ EOF
     mkdir -p src/model/components
     cp $BASE_DIR/resources/components/*.yaml src/model/components
   )
-  ./scripts/generate-function-model.sh
+  ./scripts/generate-application-model.sh
   git add .
-  git commit -m 'Add function models concerning the api service.'
-  ./scripts/publish-local-function-model.sh
+  git commit -m 'Add application models concerning the api service.'
+  ./scripts/publish-local-application-model.sh
 }
 
 _040_generating_and_testing_api_service() {
@@ -144,7 +144,7 @@ _project: &project
     name: domain-model
     version: '0.0.1'
   - group: laplacian-tutorial
-    name: function-model
+    name: application-model
     version: '0.0.1'
   # ... to here.
 project:

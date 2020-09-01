@@ -20,11 +20,11 @@ Laplacian自動生成基盤を利用したアプリケーション開発を行�
 
 アプリケーションを構成する各プロジェクトを管理するプロジェクトグループを作成します。
 
-### [アプリケーションドメインモデルの作成](./020_creating_application_domain_model.md)
+### [ドメインモデルの作成](./020_creating_domain_model.md)
 
 アプリケーションの問題領域を表現するドメインモデルを作成します。
 
-### [アプリケーションAPIモデルの作成](./030_creating_application_api_model.md)
+### [アプリケーションモデルの作成](./030_creating_application_model.md)
 
 APIの機能と構成を定義するモデルを作成します。
 
