@@ -28,7 +28,7 @@
     The new subproject is created at ./subprojects/laplacian-tutorial.api-service/
     ```
 
-    生成されたプロジェクトファイル (`src/project/subprojects/laplacian-tutorial/api-service.yaml`)をエディタで開き、先に作成したドメインモデルとファンクションモデルへの参照を追加します。
+    生成されたプロジェクトファイル (`src/project/subprojects/laplacian-tutorial/api-service.yaml`)をエディタで開き、先に作成したドメインモデルとアプリケーションモデルへの参照を追加します。
 
     ```console
     code .
@@ -59,7 +59,7 @@
         name: domain-model
         version: '0.0.1'
       - group: laplacian-tutorial
-        name: function-model
+        name: application-model
         version: '0.0.1'
       # ... to here.
     project:
