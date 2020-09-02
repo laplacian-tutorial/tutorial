@@ -90,9 +90,9 @@ $ curl -s "https://get.sdkman.io" | bash
 $ source "/home/iwauo/.sdkman/bin/sdkman-init.sh"
 ```
 
-## Java8
+## Java (JDK11)
 
 ```console
-$ sdk install java 8.0.242-zulu
+$ sdk install java
 
 ```
