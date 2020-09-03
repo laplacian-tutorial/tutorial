@@ -1,5 +1,5 @@
 components:
-- name: test_db
+- name: tutorial_test_db
   type: postgres_test_db
   username: test
   password: secret

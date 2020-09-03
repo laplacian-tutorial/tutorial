@@ -4,4 +4,4 @@ components:
   function_model_name: tutorial_api
   datasource_mappings:
   - name: default
-    component_name: test_db
+    component_name: tutorial_test_db

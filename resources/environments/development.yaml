@@ -1,6 +1,9 @@
 environments:
 - tier: development
   name: development
-  component_entries:
-  - name: tutorial_api
-  - name: test_db
+
+  deployments:
+   - name: tutorial_api
+     type: container_on_gcp_cloudrun
+   - name: tutorial_test_db
+     type: container_on_gce_instance
