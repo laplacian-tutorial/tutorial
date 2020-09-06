@@ -6,6 +6,11 @@
 
 Install [Ubuntu 18.04 LTS](https://www.microsoft.com/ja-jp/p/ubuntu-1804-lts/9n9tngvndl3q?rtc=1&activetab=pivot:overviewtab) from the Microsoft Store
 
+### Docker Desktop
+
+On WSL1, docker does not run natively. So, download and install the [Docker Desktop for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows) first.
+
+
 ## Base settings
 
 ```console
@@ -95,4 +100,72 @@ $ source "/home/iwauo/.sdkman/bin/sdkman-init.sh"
 ```console
 $ sdk install java
 
+```
+
+## Docker client
+
+To connect Docker daemon from WSL, install a docker client on WSL.
+
+```console
+$ sudo apt-get update
+```
+
+```console
+$ sudo apt-get install \
+  apt-transport-https \
+  ca-certificates \
+  curl \
+  software-properties-common
+```
+
+```console
+$ curl -fsSL \
+  'https://download.docker.com/linux/ubuntu/gpg' \
+  | sudo apt-key add -
+```
+
+```console
+$ sudo add-apt-repository \
+  "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+```
+
+```console
+$ sudo apt-get update \
+  && sudo apt-get install docker-ce
+```
+
+Add some settings for Docker client
+
+```console
+$ echo 'export DOCKER_HOST=tcp://localhost:2375' >> ~/.profile
+
+$ source ~/.profile
+```
+
+```console
+$ sudo usermod -a -G docker $USER
+```
+
+Confirm that docker works correctly
+
+```console
+$ docker run hello-world
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+```
+
+## Docker compose
+
+For local development, we use docker-compose to orchestrate containers.
+
+```console
+$ sudo apt-get update \
+  && sudo apt-get install docker-compose
+```
+
+```console
+$ docker-compose --version
+
+docker-compose version 1.17.1, build unknown
 ```
