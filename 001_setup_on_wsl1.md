@@ -9,7 +9,7 @@ Install [Ubuntu 18.04 LTS](https://www.microsoft.com/ja-jp/p/ubuntu-1804-lts/9n9
 ## Base settings
 
 ```console
-$ cat <<END >> ~/.bashrc
+$ cat <<'END' >> ~/.bashrc
 PROMPT_COMMAND=__prompt_command
 __prompt_command() {
     local EXIT="$?"
