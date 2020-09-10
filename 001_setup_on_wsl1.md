@@ -53,7 +53,7 @@ $ sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master
 ```
 
 ```console
-$ echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >>~/.profile
+$ echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> ~/.bashrc
 
 $ eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
@@ -76,13 +76,16 @@ $ exec $SHELL -l
 
 $ nodenv install --list
 
-$ nodenv install 12.14.1
+$ nodenv install 12.18.3
 
 $ nodenv rehash
 
-$ nodenv global 12.14.1
+$ nodenv global 12.18.3
 
-$ npm install -g eslint
+$ node -v
+
+v12.18.3
+
 ```
 
 ## SDKMAN
@@ -137,9 +140,9 @@ $ sudo apt-get update \
 Add some settings for Docker client
 
 ```console
-$ echo 'export DOCKER_HOST=tcp://localhost:2375' >> ~/.profile
+$ echo 'export DOCKER_HOST=tcp://localhost:2375' >> ~/.bashrc
 
-$ source ~/.profile
+$ source ~/.bashrc
 ```
 
 ```console
