@@ -172,3 +172,11 @@ $ docker-compose --version
 
 docker-compose version 1.17.1, build unknown
 ```
+
+## Other tools
+
+Graphviz
+
+```console
+brew install graphviz
+```
