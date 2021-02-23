@@ -65,6 +65,10 @@ $ brew install anyenv
 $ echo 'eval "$(anyenv init -)"' >> ~/.bashrc
 
 $ anyenv install --init
+
+$ mkdir -p $(anyenv root)/plugins
+
+$ git clone https://github.com/znz/anyenv-update.git $(anyenv root)/plugins/anyenv-update
 ```
 
 ## NodeJS
