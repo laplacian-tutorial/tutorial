@@ -75,6 +75,8 @@ $ git clone https://github.com/znz/anyenv-update.git $(anyenv root)/plugins/anye
 ```console
 $ anyenv install nodenv
 
+$ anyenv update
+
 $ exec $SHELL -l
 
 $ nodenv install --list
@@ -88,6 +90,27 @@ $ nodenv global 12.20.1
 $ node -v
 
 v12.20.1
+
+```
+
+## Go
+```console
+$ anyenv install goenv
+
+$ exec $SHELL -l
+
+$ anyenv update
+
+$ goenv install --list
+
+$ goenv install 1.16.6
+
+$ goenv rehash
+
+$ goenv global 1.16.6
+
+$  go version
+go version go1.16.6 darwin/amd64
 
 ```
 
